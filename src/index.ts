@@ -6,7 +6,7 @@ app.use(express.json());
 // GET for quick browser testing
 app.get("/matrix-edge-test", (req, res) => {
   res.json({
-    note: "Hello from Matrix Edge – Test (GET)",
+    note: "Hello from Matrix Edge – Test (GET V2)",
     received: null
   });
 });
