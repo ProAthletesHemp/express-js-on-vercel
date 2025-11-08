@@ -3,10 +3,18 @@ import express from "express";
 const app = express();
 app.use(express.json());
 
-// ✅ Simple test route for the relay
+// GET for quick browser testing
+app.get("/matrix-edge-test", (req, res) => {
+  res.json({
+    note: "Hello from Matrix Edge – Test (GET)",
+    received: null
+  });
+});
+
+// POST for Bubble / API calls
 app.post("/matrix-edge-test", (req, res) => {
   res.json({
-    note: "Hello from Matrix Edge – Test",
+    note: "Hello from Matrix Edge – Test (POST)",
     received: req.body || null
   });
 });
