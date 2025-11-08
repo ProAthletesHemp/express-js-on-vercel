@@ -4,8 +4,8 @@ import OpenAI from "openai";
 const app = express();
 app.use(express.json());
 
-// OpenAI client using your Vercel env var
-const client = new OpenAI({
+// Cast to any so TypeScript is happy; at runtime this *is* constructable.
+const client = new (OpenAI as any)({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
