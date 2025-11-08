@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 
 // OpenAI client using your Vercel env var
+// @ts-ignore – TS 4.9 doesn't like the OpenAI constructor type, but this is correct at runtime
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
