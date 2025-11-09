@@ -19,7 +19,30 @@ app.get("/healthz", (req, res) => {
 // ---------- MATRIX EDGE MAIN ENDPOINT ----------
 // Bubble is POSTing the full game payload here.
 app.post("/bubble-matrix", async (req, res) => {
-  const payload = req.body; // this is the full Bubble JSON
+  try {
+    // For now, ignore whatever Bubble sends and just return a fixed test object.
+    const echoPayload = {
+      league: "NFL",
+      msg: "ping from Bubble (hardcoded test)"
+    };
+
+    const result = {
+      note: "Response from Matrix Edge — via Vercel stub",
+      received: echoPayload,
+      matrix_hot_take: "",
+      spread_analysis: "",
+      total_analysis: "",
+      moneyline_analysis: ""
+    };
+
+    res.json(result);
+  } catch (err: any) {
+    console.error(err);
+    res
+      .status(500)
+      .json({ error: "server_error", message: err?.message || "Unknown error" });
+  }
+});
 
   // Try to detect league from payload
   const league = (payload.league || payload.LEAGUE || "").toString().toUpperCase();
