@@ -7,23 +7,16 @@ const client = new (OpenAI as any)({
 });
 
 const app = express();
-
-// Make sure we can read JSON from Bubble
 app.use(bodyParser.json());
-
-// Simple health check
-app.get("/healthz", (req, res) => {
-  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
-});
 
 // ---------- MATRIX EDGE MAIN ENDPOINT ----------
 // Bubble is POSTing the full game payload here.
 app.post("/bubble-matrix", async (req, res) => {
   try {
-    // For now, ignore whatever Bubble sends and just return a fixed test object.
     const echoPayload = {
       league: "NFL",
-      msg: "ping from Bubble (hardcoded test)"
+      msg: "ping from Bubble (hardcoded test)",
+      raw_body: req.body, // optional: see what Bubble actually sent
     };
 
     const result = {
@@ -32,17 +25,20 @@ app.post("/bubble-matrix", async (req, res) => {
       matrix_hot_take: "",
       spread_analysis: "",
       total_analysis: "",
-      moneyline_analysis: ""
+      moneyline_analysis: "",
     };
 
     res.json(result);
-  } catch (err: any) {
+  } catch (err) {
     console.error(err);
-    res
-      .status(500)
-      .json({ error: "server_error", message: err?.message || "Unknown error" });
+    res.status(500).json({
+      error: "server_error",
+      message: err.message || "Unknown error",
+    });
   }
 });
+
+export default app;
 
   // Try to detect league from payload
   const league = (payload.league || payload.LEAGUE || "").toString().toUpperCase();
