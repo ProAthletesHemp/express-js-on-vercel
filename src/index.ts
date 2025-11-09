@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
 
 // ---------- MATRIX EDGE MAIN ENDPOINT ----------
 // Bubble will POST the full game payload here.
-app.post("/bubble-matrix", async (req, res) => {
+app.post("/matrix-edge-test", async (req, res) => {
   try {
     // For now, ignore whatever Bubble sends and just return a fixed test object.
 const echoPayload = req.body; // use exactly what Bubble sent us
