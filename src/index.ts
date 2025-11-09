@@ -15,20 +15,16 @@ app.get("/", (req, res) => {
 app.post("/bubble-matrix", async (req, res) => {
   try {
     // For now, ignore whatever Bubble sends and just return a fixed test object.
-    const echoPayload = {
-      league: "NFL",
-      msg: "ping from Bubble (hardcoded test)",
-      raw_body: req.body, // lets us see what Bubble actually sent
-    };
+const echoPayload = req.body; // use exactly what Bubble sent us
 
-    const result = {
-      note: "Response from Matrix Edge — via Vercel stub",
-      received: echoPayload,
-      matrix_hot_take: "",
-      spread_analysis: "",
-      total_analysis: "",
-      moneyline_analysis: "",
-    };
+const result = {
+  note: "Response from Matrix Edge — via Vercel stub",
+  received: echoPayload,
+  matrix_hot_take: "",
+  spread_analysis: "",
+  total_analysis: "",
+  moneyline_analysis: "",
+};
 
     res.json(result);
   } catch (err: any) {
