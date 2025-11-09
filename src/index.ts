@@ -5,22 +5,23 @@ import OpenAI from "openai"; // fine if unused for now
 const app = express();
 app.use(bodyParser.json());
 
-// Simple health check
-app.get("/", (req, res) => {
+// Health check
+app.get("/", (_req, res) => {
   res.send("Matrix Edge stub running");
 });
 
-// ---------- MATRIX EDGE MAIN ENDPOINT ----------
+// -------- MATRIX EDGE MAIN ENDPOINT --------
 app.post("/matrix-edge-test", async (req, res) => {
   try {
-    const echoPayload = (req.body || {}) as any;
-    const homeTeam = echoPayload.home_team;
+    const { league, home_team } = req.body || {};
+
+    const echoPayload = req.body; // whatever Bubble sent
 
     const result = {
       note: "Response from Matrix Edge — via Vercel stub",
       received: echoPayload,
-      matrix_hot_take: homeTeam
-        ? `TEST: Vercel says home_team is "${homeTeam}".`
+      matrix_hot_take: home_team
+        ? `TEST: Vercel says home_team is "${home_team}".`
         : "TEST: Vercel did not receive home_team.",
       spread_analysis: "",
       total_analysis: "",
@@ -29,7 +30,7 @@ app.post("/matrix-edge-test", async (req, res) => {
 
     res.json(result);
   } catch (err: any) {
-    console.error("matrix-edge-test error", err);
+    console.error(err);
     res
       .status(500)
       .json({ error: "server_error", message: err?.message || "Unknown error" });
