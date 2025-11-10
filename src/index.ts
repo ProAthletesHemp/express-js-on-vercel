@@ -1,7 +1,7 @@
 // index.ts
 import express from "express";
 import bodyParser from "body-parser";
-import { runMatrixWorkflow } from "./matrixWorkflow";
+import { runMatrixWorkflow } from "./matrixWorkflow.js";
 
 const app = express();
 app.use(bodyParser.json());
