@@ -13,14 +13,16 @@ app.get("/", (_req, res) => {
 // -------- MATRIX EDGE MAIN ENDPOINT --------
 app.post("/matrix-edge-test", async (req, res) => {
   try {
-    // 🔹 Add this line
+    // 🔹 Log everything Bubble sends so we can see all mapped fields in Vercel logs
     console.log(
       "Matrix Edge Test payload:",
       JSON.stringify(req.body, null, 2)
     );
 
     const { league, home_team } = req.body || {};
-    const echoPayload = req.body; // whatever Bubble sent
+
+    // Echo back whatever Bubble sent so you can also see it in Bubble’s response viewer
+    const echoPayload = req.body;
 
     const result = {
       note: "Response from Matrix Edge — via Vercel stub",
@@ -35,10 +37,12 @@ app.post("/matrix-edge-test", async (req, res) => {
 
     res.json(result);
   } catch (err: any) {
-    console.error(err);
-    res
-      .status(500)
-      .json({ error: "server_error", message: err?.message || "Unknown error" });
+    console.error("Matrix Edge Test error:", err);
+    res.status(500).json({
+      error: "server_error",
+      message: err?.message || "Unknown error",
+    });
   }
 });
+
 export default app;
