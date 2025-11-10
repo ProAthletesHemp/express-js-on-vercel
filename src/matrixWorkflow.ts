@@ -193,7 +193,7 @@ INPUT
 
 TOOLS
 - File Search (Matrix Edge Vector Store) retrieves team personality, fanbase tone, humor context, and city traits.
-- Web Search retrieves current injuries, team records, standings, or relevant headlines no more than seven days old.
+- Web Search retrieves current injuries, team records, standings, or relevant headlines no more than eight days old.
 
 Tool order:
 - Always call File Search for both home_team and away_team, including nicknames such as "Cowboys".
@@ -255,7 +255,7 @@ MATRIX AI HOT TAKE
 
 WEB SEARCH PLAN
 - Purpose: Add current context only to Matrix Hot Takes, including recent injuries, team records, and trending storylines.
-- Time Frame: Only include content posted within seven days of the kickoff date.
+- Time Frame: Only include content posted within eight days of the kickoff date.
 
 Priority Sources:
 - Team’s official site (e.g., dallascowboys.com, packers.com).
@@ -273,11 +273,11 @@ Process:
   <home_team> record standings
   <away_team> trending news
   <home_team> <away_team> preview
-- Collect articles within the valid seven-day window.
+- Collect articles within the valid eight-day window.
 - If none are usable, rely on headline tone or proceed without web context.
 
 Restrictions:
-- Never use or reference content older than seven days before kickoff.
+- Never use or reference content older than eight days before kickoff.
 - Never fabricate or speculate.
 - Prioritize accuracy, recency, and official team communications.
 - If no valid or timely content is found, omit web context entirely and proceed with data-only analysis.
@@ -348,7 +348,7 @@ INPUT
 
 TOOLS
 - File Search (Matrix Edge Vector Store) for long-term program identity, fanbase personality, and campus traits.
-- Web Search for current injuries, records, standings, or headlines no more than seven days old.
+- Web Search for current injuries, records, standings, or headlines no more than eight days old.
 
 Tool order and non-negotiables are the same as for the NFL Agent, but use college sources (team athletic sites, NCAA.com, ESPN college, etc.).
 
