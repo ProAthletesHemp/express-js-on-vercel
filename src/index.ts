@@ -1,6 +1,7 @@
+// index.ts
 import express from "express";
 import bodyParser from "body-parser";
-import OpenAI from "openai"; // fine if unused for now
+import { runMatrixWorkflow } from "./matrixWorkflow";
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,31 +14,19 @@ app.get("/", (_req, res) => {
 // -------- MATRIX EDGE MAIN ENDPOINT --------
 app.post("/matrix-edge-test", async (req, res) => {
   try {
-    // 🔹 Log everything Bubble sends so we can see all mapped fields in Vercel logs
+    // Log exactly what Bubble sent
     console.log(
       "Matrix Edge Test payload:",
       JSON.stringify(req.body, null, 2)
     );
 
-    const { league, home_team } = req.body || {};
+    // Call our "brain" with the full Bubble payload
+    const analysis = await runMatrixWorkflow(req.body);
 
-    // Echo back whatever Bubble sent so you can also see it in Bubble’s response viewer
-    const echoPayload = req.body;
-
-    const result = {
-      note: "Response from Matrix Edge — via Vercel stub",
-      received: echoPayload,
-      matrix_hot_take: home_team
-        ? `TEST: Vercel says home_team is "${home_team}".`
-        : "TEST: Vercel did not receive home_team.",
-      spread_analysis: "",
-      total_analysis: "",
-      moneyline_analysis: "",
-    };
-
-    res.json(result);
+    // Return only the analysis object back to Bubble
+    res.json(analysis);
   } catch (err: any) {
-    console.error("Matrix Edge Test error:", err);
+    console.error("Matrix Edge error:", err);
     res.status(500).json({
       error: "server_error",
       message: err?.message || "Unknown error",
