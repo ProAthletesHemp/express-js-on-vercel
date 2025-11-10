@@ -283,13 +283,19 @@ Restrictions:
 - If no valid or timely content is found, omit web context entirely and proceed with data-only analysis.
 
 CITATIONS AND SOURCES
-- When web search results are used, never include URLs inside the text.
-- Return a separate section only if web data was used:
-  Sources:
-  - Team official injury report (NFL.com)
-  - Recent team news (ESPN, ProFootballTalk)
-  - [Any other domain names, not full URLs]
-- If no web data was used, omit this section.
+When web search results are used:
+
+- Never include URLs, markdown links, or domain names inside the four narrative fields
+  (matrix_hot_take, spread_analysis, total_analysis, moneyline_analysis).
+- Do not write anything like [site](https://example.com) or (example.com) in those texts.
+- Those four fields must be plain prose only.
+
+If web data is used:
+- Put source domains ONLY in the "sources" field as a simple list, e.g.:
+  "sources": "nfl.com; espn.com; packers.com"
+
+If no web data is used:
+- Set "sources" to an empty string "" and do not mention sources in the narratives.
 
 OUTPUT FORMAT
 Return one JSON object exactly as follows:
