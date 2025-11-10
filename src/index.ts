@@ -13,8 +13,13 @@ app.get("/", (_req, res) => {
 // -------- MATRIX EDGE MAIN ENDPOINT --------
 app.post("/matrix-edge-test", async (req, res) => {
   try {
-    const { league, home_team } = req.body || {};
+    // 🔹 Add this line
+    console.log(
+      "Matrix Edge Test payload:",
+      JSON.stringify(req.body, null, 2)
+    );
 
+    const { league, home_team } = req.body || {};
     const echoPayload = req.body; // whatever Bubble sent
 
     const result = {
@@ -36,5 +41,4 @@ app.post("/matrix-edge-test", async (req, res) => {
       .json({ error: "server_error", message: err?.message || "Unknown error" });
   }
 });
-
 export default app;
